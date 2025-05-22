@@ -1,0 +1,809 @@
+m255
+K4
+z2
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z0 dD:/verilog_projects/mid_assignment
+vadder_32bit
+Z1 !s110 1747841025
+!i10b 1
+!s100 `Kna7U5ZIihO1in;Y5FVk3
+IbJk@=Qhi[l33:oFW@gkz?3
+Z2 VDg1SIo80bB@j0V0VzS_@n1
+R0
+Z3 w1747594753
+Z4 8D:/verilog_projects/mid_assignment/alu_lib.v
+Z5 FD:/verilog_projects/mid_assignment/alu_lib.v
+L0 14
+Z6 OV;L;10.5b;63
+r1
+!s85 0
+31
+Z7 !s108 1747841024.000000
+Z8 !s107 D:/verilog_projects/mid_assignment/alu_lib.v|
+Z9 !s90 -reportprogress|300|-work|work|-stats=none|D:/verilog_projects/mid_assignment/alu_lib.v|
+!i113 1
+Z10 o-work work
+Z11 tCvgOpt 0
+valu
+Z12 !s110 1747841024
+!i10b 1
+!s100 mUP3K[2GW2X8lmR1RoPdI3
+I;mMFzkKL7dL^BY6QYWida0
+R2
+R0
+w1747595388
+8D:/verilog_projects/mid_assignment/alu.v
+FD:/verilog_projects/mid_assignment/alu.v
+L0 1
+R6
+r1
+!s85 0
+31
+R7
+!s107 D:/verilog_projects/mid_assignment/alu.v|
+!s90 -reportprogress|300|-work|work|-stats=none|D:/verilog_projects/mid_assignment/alu.v|
+!i113 1
+R10
+R11
+vALU_decoder
+R1
+!i10b 1
+!s100 QRgRhKBZdlP7X1H089HQ<2
+I9hR]`lE2RcJe8@@X=L5Uj1
+R2
+R0
+w1747597716
+8D:/verilog_projects/mid_assignment/control_unit_lib.v
+FD:/verilog_projects/mid_assignment/control_unit_lib.v
+L0 1
+R6
+r1
+!s85 0
+31
+Z13 !s108 1747841025.000000
+!s107 D:/verilog_projects/mid_assignment/control_unit_lib.v|
+!s90 -reportprogress|300|-work|work|-stats=none|D:/verilog_projects/mid_assignment/control_unit_lib.v|
+!i113 1
+R10
+R11
+n@a@l@u_decoder
+vand_32bit
+R1
+!i10b 1
+!s100 K`Eh5eC``Zc?;hHW0:h4S2
+IldYkljmG8=Pz?:;ck4@ao2
+R2
+R0
+R3
+R4
+R5
+L0 69
+R6
+r1
+!s85 0
+31
+R7
+R8
+R9
+!i113 1
+R10
+R11
+vcascadable_divider
+R1
+!i10b 1
+!s100 XYiC7]ITMWTX5jDIZKDRa1
+IdPj`E[PknMJXg7ijl_a`l1
+R2
+R0
+R3
+R4
+R5
+L0 61
+R6
+r1
+!s85 0
+31
+R7
+R8
+R9
+!i113 1
+R10
+R11
+vcascadable_multiplier
+R1
+!i10b 1
+!s100 YLmO<HYe70VnOOXWaKZ^<0
+IYa9`hh;hTl;O1QlaZ1<[[3
+R2
+R0
+R3
+R4
+R5
+L0 53
+R6
+r1
+!s85 0
+31
+R7
+R8
+R9
+!i113 1
+R10
+R11
+vcomparator
+R1
+!i10b 1
+!s100 :0XSLf>DeKEfic]?kXlTb1
+IXYY`O_0nhkS5g18Wg5@Vm0
+R2
+R0
+R3
+R4
+R5
+L0 89
+R6
+r1
+!s85 0
+31
+R7
+R8
+R9
+!i113 1
+R10
+R11
+vdmx
+R1
+!i10b 1
+!s100 W=>b<]o0G<@H7Ni]FQ>Y20
+I4T2kP:K@MecVV?62U6Sdm1
+R2
+R0
+w1747832269
+8D:/verilog_projects/mid_assignment/dmx.v
+FD:/verilog_projects/mid_assignment/dmx.v
+L0 2
+R6
+r1
+!s85 0
+31
+R13
+!s107 D:/verilog_projects/mid_assignment/dmx.v|
+!s90 -reportprogress|300|-work|work|-stats=none|D:/verilog_projects/mid_assignment/dmx.v|
+!i113 1
+R10
+R11
+vextender_1to32
+R1
+!i10b 1
+!s100 SO^P9A2@lRVFRSje;_=ga1
+IkLS8eKlIa1T?Gc:CKOhD[3
+R2
+R0
+R3
+R4
+R5
+L0 115
+R6
+r1
+!s85 0
+31
+R7
+R8
+R9
+!i113 1
+R10
+R11
+vfull_adder
+R1
+!i10b 1
+!s100 k;S;E`TVDbS;ZBTXL2mFW3
+IlCLEzYNKO:e05hVag^8^F2
+R2
+R0
+R3
+R4
+R5
+L0 2
+R6
+r1
+!s85 0
+31
+R7
+R8
+R9
+!i113 1
+R10
+R11
+vfull_subtractor
+R1
+!i10b 1
+!s100 a1BZFnZnIm8VG3mz4Q;?o3
+II>hH_N43O31lYVEBOh][D0
+R2
+R0
+R3
+R4
+R5
+L0 8
+R6
+r1
+!s85 0
+31
+R7
+R8
+R9
+!i113 1
+R10
+R11
+vimmediate_sign_extend
+R1
+!i10b 1
+!s100 P7Vni;eGVN5dRN3b@VmS=3
+IWbXkMQKMYXAPcc7jYhK8g0
+R2
+R0
+w1747747084
+8D:/verilog_projects/mid_assignment/immediate_sign_extend.v
+FD:/verilog_projects/mid_assignment/immediate_sign_extend.v
+L0 1
+R6
+r1
+!s85 0
+31
+R13
+!s107 D:/verilog_projects/mid_assignment/immediate_sign_extend.v|
+!s90 -reportprogress|300|-work|work|-stats=none|D:/verilog_projects/mid_assignment/immediate_sign_extend.v|
+!i113 1
+R10
+R11
+vinstruction_memory
+R1
+!i10b 1
+!s100 B2cA9I;oDe^8mbg9dV0S03
+ITfLm3<:cg9oODNo[``jzT1
+R2
+R0
+Z14 w1747832201
+Z15 8D:/verilog_projects/mid_assignment/instruction_memory.v
+Z16 FD:/verilog_projects/mid_assignment/instruction_memory.v
+L0 1
+R6
+r1
+!s85 0
+31
+R13
+Z17 !s107 D:/verilog_projects/mid_assignment/instruction_memory.v|
+Z18 !s90 -reportprogress|300|-work|work|-stats=none|D:/verilog_projects/mid_assignment/instruction_memory.v|
+!i113 1
+R10
+R11
+vleft_shift
+R1
+!i10b 1
+!s100 L9Kkll<AW:7H1bCST7]Jk0
+IJMz>hd9CTOWbo_I2lN2Af1
+R2
+R0
+R3
+R4
+R5
+L0 38
+R6
+r1
+!s85 0
+31
+R7
+R8
+R9
+!i113 1
+R10
+R11
+vmux
+R1
+!i10b 1
+!s100 `m:XT^[k_=jbKfbW=MAio1
+I^A=A1[6UNfjIUX0EP6RGT0
+R2
+R0
+w1747587829
+8D:/verilog_projects/mid_assignment/mux.v
+FD:/verilog_projects/mid_assignment/mux.v
+L0 1
+R6
+r1
+!s85 0
+31
+R13
+!s107 D:/verilog_projects/mid_assignment/mux.v|
+!s90 -reportprogress|300|-work|work|-stats=none|D:/verilog_projects/mid_assignment/mux.v|
+!i113 1
+R10
+R11
+vnor_32bit
+R1
+!i10b 1
+!s100 Cg9GjO=_TiQ_8:58c`jCB3
+IDF1B3=<HX9T1C^COngJH?3
+R2
+R0
+R3
+R4
+R5
+L0 84
+R6
+r1
+!s85 0
+31
+R7
+R8
+R9
+!i113 1
+R10
+R11
+vor_32bit
+R1
+!i10b 1
+!s100 g[9I?[BNC@chL9G8=]:_G3
+Id2G85IIDF1LMc8B<AHM_W1
+R2
+R0
+R3
+R4
+R5
+L0 74
+R6
+r1
+!s85 0
+31
+R7
+R8
+R9
+!i113 1
+R10
+R11
+vpc_module
+R1
+!i10b 1
+!s100 M]?l5VzOVe=ezaH3d3@1J3
+I@Y_>4Q0TAA7lK_JHgJ3f@0
+R2
+R0
+w1747825394
+8D:/verilog_projects/mid_assignment/pc_module.v
+FD:/verilog_projects/mid_assignment/pc_module.v
+L0 1
+R6
+r1
+!s85 0
+31
+R13
+!s107 D:/verilog_projects/mid_assignment/pc_module.v|
+!s90 -reportprogress|300|-work|work|-stats=none|D:/verilog_projects/mid_assignment/pc_module.v|
+!i113 1
+R10
+R11
+vram_module
+R1
+!i10b 1
+!s100 gMhQ7TYz<ZP@izR7X9D?`0
+I9>Kc_[1lEzb]_>^00lo[<3
+R2
+R0
+w1747839712
+8D:/verilog_projects/mid_assignment/data_memory.v
+FD:/verilog_projects/mid_assignment/data_memory.v
+L0 3
+R6
+r1
+!s85 0
+31
+R13
+!s107 D:/verilog_projects/mid_assignment/data_memory.v|
+!s90 -reportprogress|300|-work|work|-stats=none|D:/verilog_projects/mid_assignment/data_memory.v|
+!i113 1
+R10
+R11
+vright_arithmetic_shift
+R1
+!i10b 1
+!s100 [hMkQT>:3Ke65eXGL[Ue:1
+IYQLGHb2RPFeS1BXHNSj3V2
+R2
+R0
+R3
+R4
+R5
+L0 48
+R6
+r1
+!s85 0
+31
+R7
+R8
+R9
+!i113 1
+R10
+R11
+vright_shift
+R1
+!i10b 1
+!s100 HC[YF7]RBc2JUiSnNRk^O2
+ING50_i[bl8:>YbUbZ]lYW3
+R2
+R0
+R3
+R4
+R5
+L0 43
+R6
+r1
+!s85 0
+31
+R7
+R8
+R9
+!i113 1
+R10
+R11
+vrom0
+R1
+!i10b 1
+!s100 gzC;0TjSfR]@jOf6cF_aK3
+I;G`;1zC]1_m9IW^j8k==X2
+R2
+R0
+R14
+R15
+R16
+L0 41
+R6
+r1
+!s85 0
+31
+R13
+R17
+R18
+!i113 1
+R10
+R11
+vrom1
+R1
+!i10b 1
+!s100 VR?bOIDN:>]=<=nKA_me62
+I<1k@M[_5O6f2m1h3G:PC31
+R2
+R0
+R14
+R15
+R16
+L0 52
+R6
+r1
+!s85 0
+31
+R13
+R17
+R18
+!i113 1
+R10
+R11
+vsign_extend_16to32
+R1
+!i10b 1
+!s100 0SFT64X>O112A3AeQeC1D0
+IP?mj];j_;U28fO[E>l4AY1
+R2
+R0
+Z19 w1747746536
+Z20 8D:/verilog_projects/mid_assignment/sign_extend__lib.v
+Z21 FD:/verilog_projects/mid_assignment/sign_extend__lib.v
+L0 1
+R6
+r1
+!s85 0
+31
+R13
+Z22 !s107 D:/verilog_projects/mid_assignment/sign_extend__lib.v|
+Z23 !s90 -reportprogress|300|-work|work|-stats=none|D:/verilog_projects/mid_assignment/sign_extend__lib.v|
+!i113 1
+R10
+R11
+vstatistics
+R1
+!i10b 1
+!s100 [b;V>_APCG3W196Qb=l6m3
+ILT1>=Q397@UG0cRYo3Ee83
+R2
+R0
+w1747747324
+8D:/verilog_projects/mid_assignment/statistics.v
+FD:/verilog_projects/mid_assignment/statistics.v
+L0 1
+R6
+r1
+!s85 0
+31
+R13
+!s107 D:/verilog_projects/mid_assignment/statistics.v|
+!s90 -reportprogress|300|-work|work|-stats=none|D:/verilog_projects/mid_assignment/statistics.v|
+!i113 1
+R10
+R11
+vsubtractor_32bit
+R1
+!i10b 1
+!s100 CdccbDiMHO3[U5k_VjzU^1
+IGb5NL2Q<kN7I9N>I1f5CE3
+R2
+R0
+R3
+R4
+R5
+L0 26
+R6
+r1
+!s85 0
+31
+R7
+R8
+R9
+!i113 1
+R10
+R11
+vsyscall_decoder
+R1
+!i10b 1
+!s100 P^5_LBe2KnKn@mZkGnB`72
+I?YnCzS`kXjWXh>j]i]7fJ0
+R2
+R0
+w1747617753
+8D:/verilog_projects/mid_assignment/syscall_decoder.v
+FD:/verilog_projects/mid_assignment/syscall_decoder.v
+L0 1
+R6
+r1
+!s85 0
+31
+R13
+!s107 D:/verilog_projects/mid_assignment/syscall_decoder.v|
+!s90 -reportprogress|300|-work|work|-stats=none|D:/verilog_projects/mid_assignment/syscall_decoder.v|
+!i113 1
+R10
+R11
+vtb_alu
+R12
+!i10b 1
+!s100 4EI[j<V@]:Ok8`RGXh22]2
+Ig=E7e=jF?DYfa2zi>d:K`1
+R2
+R0
+w1747594459
+8D:/verilog_projects/mid_assignment/tb_alu.v
+FD:/verilog_projects/mid_assignment/tb_alu.v
+L0 3
+R6
+r1
+!s85 0
+31
+R7
+!s107 D:/verilog_projects/mid_assignment/tb_alu.v|
+!s90 -reportprogress|300|-work|work|-stats=none|D:/verilog_projects/mid_assignment/tb_alu.v|
+!i113 1
+R10
+R11
+vtb_extend_16to32
+!s110 1747747328
+!i10b 1
+!s100 aa@QNQOfi2WlZCAoPRW`C2
+IW4m]6T326eG3h5TTZ0D]Q3
+R2
+R0
+w1747747308
+Z24 8D:/verilog_projects/mid_assignment/tb_immediate_sign_extend.v
+Z25 FD:/verilog_projects/mid_assignment/tb_immediate_sign_extend.v
+L0 3
+R6
+r1
+!s85 0
+31
+!s108 1747747328.000000
+Z26 !s107 D:/verilog_projects/mid_assignment/tb_immediate_sign_extend.v|
+Z27 !s90 -reportprogress|300|-work|work|-stats=none|D:/verilog_projects/mid_assignment/tb_immediate_sign_extend.v|
+!i113 1
+R10
+R11
+vtb_immediate_sign_extend
+R1
+!i10b 1
+!s100 P8JUf[kZR[cLDHVO5hcan3
+IXQgQ95T4IM7[Dl?in9e:L2
+R2
+R0
+w1747747754
+R24
+R25
+L0 3
+R6
+r1
+!s85 0
+31
+R13
+R26
+R27
+!i113 1
+R10
+R11
+vtb_instruction_memory
+R1
+!i10b 1
+!s100 ?JUJSXdkaWG_cm_i?j`A<2
+I08]R>:dGh?bA@^8KilniB0
+R2
+R0
+w1747832071
+8D:/verilog_projects/mid_assignment/tb_instruction_memory.v
+FD:/verilog_projects/mid_assignment/tb_instruction_memory.v
+L0 3
+R6
+r1
+!s85 0
+31
+R13
+!s107 D:/verilog_projects/mid_assignment/tb_instruction_memory.v|
+!s90 -reportprogress|300|-work|work|-stats=none|D:/verilog_projects/mid_assignment/tb_instruction_memory.v|
+!i113 1
+R10
+R11
+vtb_pc_module
+R1
+!i10b 1
+!s100 HFQIS^=WR;PS8^7XI3Z;c0
+IMOEG?P_oT=R_=2;W7C]XR0
+R2
+R0
+w1747826417
+8D:/verilog_projects/mid_assignment/tb_pc_module.v
+FD:/verilog_projects/mid_assignment/tb_pc_module.v
+L0 3
+R6
+r1
+!s85 0
+31
+R13
+!s107 D:/verilog_projects/mid_assignment/tb_pc_module.v|
+!s90 -reportprogress|300|-work|work|-stats=none|D:/verilog_projects/mid_assignment/tb_pc_module.v|
+!i113 1
+R10
+R11
+vtb_ram_module
+R1
+!i10b 1
+!s100 hdIDY^>nin4H2aHFdF`W[1
+I1GdakCKM9QQjJZ]2_WkbJ2
+R2
+R0
+w1747841006
+8D:/verilog_projects/mid_assignment/tb_data_memory.v
+FD:/verilog_projects/mid_assignment/tb_data_memory.v
+L0 5
+R6
+r1
+!s85 0
+31
+R13
+!s107 D:/verilog_projects/mid_assignment/tb_data_memory.v|
+!s90 -reportprogress|300|-work|work|-stats=none|D:/verilog_projects/mid_assignment/tb_data_memory.v|
+!i113 1
+R10
+R11
+vtb_statistics
+R1
+!i10b 1
+!s100 l?U^]EJYTbO`<<AL]laJF1
+IM`Yc_G6bJ=996De20f2Ai2
+R2
+R0
+w1747657404
+8D:/verilog_projects/mid_assignment/tb_statistics.v
+FD:/verilog_projects/mid_assignment/tb_statistics.v
+L0 3
+R6
+r1
+!s85 0
+31
+R13
+!s107 D:/verilog_projects/mid_assignment/tb_statistics.v|
+!s90 -reportprogress|300|-work|work|-stats=none|D:/verilog_projects/mid_assignment/tb_statistics.v|
+!i113 1
+R10
+R11
+vtb_syscall_decoder
+R1
+!i10b 1
+!s100 aQ8U>CSUcP9a<S`]Xla1e1
+IJ:0[WQ=f7AReoaDni[^ZN2
+R2
+R0
+w1747623631
+Z28 8D:/verilog_projects/mid_assignment/tb_syscall_decoder.v
+Z29 FD:/verilog_projects/mid_assignment/tb_syscall_decoder.v
+L0 3
+R6
+r1
+!s85 0
+31
+R13
+Z30 !s107 D:/verilog_projects/mid_assignment/tb_syscall_decoder.v|
+Z31 !s90 -reportprogress|300|-work|work|-stats=none|D:/verilog_projects/mid_assignment/tb_syscall_decoder.v|
+!i113 1
+R10
+R11
+vtb_syscall_unit
+!s110 1747623473
+!i10b 1
+!s100 P;:Uj8<6Rzleo2eiCZ^>R0
+I4@>LB?SdT:5C@4W46aYRO2
+R2
+R0
+w1747623337
+R28
+R29
+L0 3
+R6
+r1
+!s85 0
+31
+!s108 1747623473.000000
+R30
+R31
+!i113 1
+R10
+R11
+vxor_32bit
+R1
+!i10b 1
+!s100 TA1bKD=eGSkla_IHPH9>d3
+Ic9NQbFVgm1[mP_S=<=_ER0
+R2
+R0
+R3
+R4
+R5
+L0 79
+R6
+r1
+!s85 0
+31
+R7
+R8
+R9
+!i113 1
+R10
+R11
+vzero_extend_16to32
+R1
+!i10b 1
+!s100 Q9W=o6R58m1fe2]hDi8z82
+I;BfMje`CzZVaZ@E@XnWdz1
+R2
+R0
+R19
+R20
+R21
+L0 8
+R6
+r1
+!s85 0
+31
+R13
+R22
+R23
+!i113 1
+R10
+R11

@@ -1,0 +1,14 @@
+// demux.v
+module dmx #(parameter select_bit = 1, parameter data_bits = 32) (
+    input  wire [data_bits-1:0] in,
+    input  wire [select_bit-1:0] sel,
+    output wire [(2**select_bit)*data_bits-1:0] data_bus
+);
+    genvar i;
+    generate
+        for (i = 0; i < (2**select_bit); i = i + 1) begin : demux_gen
+            assign data_bus[i*data_bits +: data_bits] = (sel == i) ? in : {data_bits{1'b0}};
+        end
+    endgenerate
+endmodule
+

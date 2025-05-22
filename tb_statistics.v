@@ -1,0 +1,47 @@
+`timescale 1ns/1ps
+
+module tb_statistics;
+
+    reg  [5:0] op;
+    wire i, r, j;
+
+    statistics uut (
+        .op(op),
+        .i(i),
+        .r(r),
+        .j(j)
+    );
+
+    initial begin
+        $display("--- Starting statistics Testbench ---");
+
+        // R-type Test
+        op = 6'b000000; #10;
+        $display("Test R-type: op = %b | i = %b, r = %b, j = %b", op, i, r, j);
+
+        // J-type Test - j
+        op = 6'b000010; #10;
+        $display("Test J-type (j): op = %b | i = %b, r = %b, j = %b", op, i, r, j);
+
+        // J-type Test - jal
+        op = 6'b000011; #10;
+        $display("Test J-type (jal): op = %b | i = %b, r = %b, j = %b", op, i, r, j);
+
+        // I-type Test - addi (8)
+        op = 6'b001000; #10;
+        $display("Test I-type (addi): op = %b | i = %b, r = %b, j = %b", op, i, r, j);
+
+        // I-type Test - lw (35)
+        op = 6'b100011; #10;
+        $display("Test I-type (lw): op = %b | i = %b, r = %b, j = %b", op, i, r, j);
+
+        // I-type Test - sw (43)
+        op = 6'b101011; #10;
+        $display("Test I-type (sw): op = %b | i = %b, r = %b, j = %b", op, i, r, j);
+
+        $display("--- Test Complete ---");
+        $stop;
+    end
+
+endmodule
+
