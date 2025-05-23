@@ -1,0 +1,75 @@
+module signal_decoder (
+    input  wire [31:0] Inst,
+    output wire [1:0]  Sel,         // Inst[12:11]
+    output wire        ExRegWrite, // NOT Inst[23]
+    output wire        IsEret      // Inst[5:0] == 6'b011000
+);
+
+    assign Sel         = Inst[12:11];
+    assign ExRegWrite  = ~Inst[23];
+    assign IsEret      = (Inst[5:0] == 6'b011000);
+
+endmodule
+
+// exception_signals.v
+
+module exception_signals (
+    input wire BlockSrc0;
+    input wire BlockSrc1;
+    input wire BlockSrc2;
+    input wire ExpSrc0;
+    input wire ExpSrc1;
+    input wire ExpSrc2;
+    input clk;
+input ExpBlock
+
+
+    
+);
+
+    wire [2:0] sel;
+    // Use dmx to route enable (1'b1) to selected ExpSrc
+    dmx #(.select_bit(1), .data_bits(1)) dmx0 (
+        .in(ExpSrc0),
+        .sel(BlockSrc0),
+        .data_bus({1'b0,sel[0]})
+    );
+    dmx #(.select_bit(1), .data_bits(1)) dmx1 (
+        .in(ExpSrc1),
+        .sel(BlockSrc1),
+        .data_bus({1'b0,sel[1]})
+    );
+    dmx #(.select_bit(1), .data_bits(1)) dmx2 (
+        .in(ExpSrc2),
+        .sel(BlockSrc2),
+        .data_bus({1'b0,sel[2]})
+    );
+
+
+    wire after_or = |sel;
+
+    assign ExpClick = ~ExpBlock & any_block;
+
+    wire [31:0] counter1_out;
+    wire [31:0] counter2_out;
+    counter counter1 (
+        .clk(ExpClick),         // ?? ??
+        .clr(counter2_out),           // ??? ?? (1?? ?????? 0?? ???)
+        .load(1'b0),            // ?? ????
+        .count(1'b0),           // ??? ???? (?? ??)
+        .D(32'd0),              // ?? ?? (???? ??? ?? ??)
+        .Q(counter1_out),       // ??
+        .carry()                // carry? ?? ? ? ? ??? ??? ????? ??? ?? ??
+    );
+    counter counter2 (
+        .clk(HasExp),         // ?? ??
+        .clr(~counter1_out),           // ??? ?? (1?? ?????? 0?? ???)
+        .load(1'b0),            // ?? ????
+        .count(1'b0),           // ??? ???? (?? ??)
+        .D(32'd0),              // ?? ?? (???? ??? ?? ??)
+        .Q(counter2_out),       // ??
+        .carry()                // carry? ?? ? ? ? ??? ??? ????? ??? ?? ??
+    );
+endmodule
+
+

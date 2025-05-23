@@ -1,62 +1,105 @@
-module cp0 (
-    input  wire        clk,
-    input  wire        enable,
-    input  wire        ExpRegWrite,   // ???? ?? ??
-    input  wire        ExpBlock,      // ?? ???? ?? ??
-    input  wire        IsEret,
-    input  wire        HasExp,        // ?? ?? ??
-    input  wire [1:0]  Sel,           // ???? ?? (00: EPC, 01: Cause, 10: Status, 11: Block)
-    input  wire [31:0] PCin,
-    input  wire [31:0] Dim,           // ?? ??
-    input  wire [31:0] ExpSrc0, ExpSrc1, ExpSrc2, // Cause ???? ??
-    output wire [31:0] PCout,         // EPC ??
-    output wire [31:0] Dout,          // ??? ???? ??
-    output wire [31:0] BlockSrc0, BlockSrc1, BlockSrc2 // ?? ???? ??
+module CP0 (
+    input  wire [31:0] Inst,
+    output wire        ExRegWrite, 
+    output wire        IsEret, 
+
+    input wire ExpSrc0;
+    input wire ExpSrc1;
+    input wire ExpSrc2;
+    input clk;
+    output ExpBlock
+    output HasExp;
+
+    input enable;
+    input PCin;
+    input Din;
+    output PCout;
+    output Dout;    
 );
+    //signal decoding
+    wire sel         = Inst[12:11];
+    assign ExRegWrite  = ~Inst[23];
+    assign IsEret      = (Inst[5:0] == 6'b011000);
 
-    // ?? ????
-    reg [31:0] EPC, Cause, Status, Block;
+    // exception_signal
+    wire BlockSrc0;
+    wire BlockSrc1;
+    wire BlockSrc2;
+    wire [2:0] exp_sel;
+    dmx #(.select_bit(1), .data_bits(1)) dmx0 (
+        .in(ExpSrc0),
+        .sel(BlockSrc0),
+        .data_bus({1'b0,exp_sel[0]})
+    );
+    dmx #(.select_bit(1), .data_bits(1)) dmx1 (
+        .in(ExpSrc1),
+        .sel(BlockSrc1),
+        .data_bus({1'b0,exp_sel[1]})
+    );
+    dmx #(.select_bit(1), .data_bits(1)) dmx2 (
+        .in(ExpSrc2),
+        .sel(BlockSrc2),
+        .data_bus({1'b0,exp_sel[2]})
+    );
+    wire after_or = |exp_sel;
+    assign ExpClick = ~ExpBlock & any_block;
 
-    // EPC ??: ?? ?? ? PCin ??
+    wire [31:0] counter1_out;
+    wire [31:0] counter2_out;
+    counter counter1 (
+        .clk(ExpClick),         // ?? ??
+        .clr(counter2_out),           // ??? ?? (1?? ?????? 0?? ???)
+        .load(1'b0),            // ?? ????
+        .count(1'b0),           // ??? ???? (?? ??)
+        .D(32'd0),              // ?? ?? (???? ??? ?? ??)
+        .Q(counter1_out),       // ??
+        .carry()                // carry? ?? ? ? ? ??? ??? ????? ??? ?? ??
+    );
+    counter counter2 (
+        .clk(HasExp),         // ?? ??
+        .clr(~counter1_out),           // ??? ?? (1?? ?????? 0?? ???)
+        .load(1'b0),            // ?? ????
+        .count(1'b0),           // ??? ???? (?? ??)
+        .D(32'd0),              // ?? ?? (???? ??? ?? ??)
+        .Q(counter2_out),       // ??
+        .carry()                // carry? ?? ? ? ? ??? ??? ????? ??? ?? ??
+    );
+
+    assign HasExp = clk&counter2_out;
+
+    //Registers
+    wire [3:0] reg_dmx_out;
+    dmx #(.select_bit(2), .data_bits(1)) reg_dmx (
+        .in(1),
+        .sel(sel),
+        .data_bus({1'b0,reg_dmx_out})
+    );
+    wire and0 = enable&~ExRegWrite;
+    wire EPC_en = HasExp | (reg_dmx[0] & and0);
+    wire Status_en = HasExp | (reg_dmx[1] & and0);
+    wire Block_en = HasExp | (reg_dmx[2] & and0);
+
+    reg [31:0] EPC;
+    reg [31:0] Status;
+    reg [31:0] Block;
+
     always @(posedge clk) begin
-        if (HasExp)
-            EPC <= PCin;
+        if (EPC_en) assign EPC = (~HasExp) ? (Din):(PCin);
+        if (Status_en) assign Status = Din;
+	if (Block_en) assign Block = Din;
     end
-
+    assign ExpBlock=Status[0];
     assign PCout = EPC;
-
-    // Cause ????: ExpSrc ??
-    wire [63:0] cause_mux_in = {ExpSrc2, ExpSrc1, ExpSrc0, 32'b0};
-    mux #(.select_bit(2), .data_bits(32)) cause_mux(
-        .sel(Sel),
-        .data_in(cause_mux_in),
-        .data_out(Cause)
+    mux #(.select_bit(2), .data_bits(32)) data_mux (
+        .sel(sel),
+        .data_bus({Cause,Block,Status,EPC}),
+        .out(Dout)
     );
+    assign BlockSrc0 = Block[0];
+    assign BlockSrc0 = Block[1];
+    assign BlockSrc0 = Block[2];
 
-    // Status ????: ExpRegWrite && enable ? ????
-    always @(posedge clk) begin
-        if (ExpRegWrite && enable && Sel == 2'b10)
-            Status <= Dim;
-    end
-
-    // Block ????: ExpBlock ? ????
-    always @(posedge clk) begin
-        if (ExpBlock)
-            Block <= Dim;
-    end
-
-    // ?? ??
-    assign BlockSrc0 = 32'h00000001;
-    assign BlockSrc1 = 32'h00000003;
-    assign BlockSrc2 = 32'h00000007;
-
-    // ?? ?? MUX (EPC, Cause, Status, Block)
-    wire [127:0] out_bus = {Block, Status, Cause, EPC};
-    mux #(.select_bit(2), .data_bits(32)) out_mux (
-        .sel(Sel),
-        .data_in(out_bus),
-        .data_out(Dout)
-    );
-
+    
 endmodule
+
 

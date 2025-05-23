@@ -1,0 +1,40 @@
+// exception_signals.v
+
+module exception_signals (
+    input wire BlockSrc0;
+    input wire BlockSrc1;
+    input wire BlockSrc2;
+    input wire ExpSrc0;
+    input wire ExpSrc1;
+    input wire ExpSrc2;
+  
+    
+);
+
+    wire [2:0] sel;
+    // Use dmx to route enable (1'b1) to selected ExpSrc
+    dmx #(.select_bit(1), .data_bits(1)) dmx0 (
+        .in(ExpSrc0),
+        .sel(BlockSrc0),
+        .data_bus({sel[0],1'b0})
+    );
+    dmx #(.select_bit(1), .data_bits(1)) dmx1 (
+        .in(ExpSrc1),
+        .sel(BlockSrc1),
+        .data_bus({sel[1],1'b0})
+    );
+    dmx #(.select_bit(1), .data_bits(1)) dmx2 (
+        .in(ExpSrc2),
+        .sel(BlockSrc2),
+        .data_bus({sel[2],1'b0})
+    );
+
+
+    wire after_or = |sel;
+
+    assign ExpClick = ~ExpBlock & any_block;
+
+    
+
+endmodule
+
