@@ -16,54 +16,46 @@ module CP0 (
     output reg  [31:0] Dout
 );
 
+    // Instruction decoding
     wire [1:0] sel = Inst[12:11];
     assign ExRegWrite = ~Inst[23];
     assign IsEret = (Inst[5:0] == 6'b011000);
 
-    // Block Source
-    wire [2:0] BlockSrc;
+    // Block logic
+    reg [31:0] EPC_out, Status_out, Block_out, Cause_out;
+    assign PCout = EPC_out;
+    assign ExpBlock = Status_out[0];
+    wire [2:0] BlockSrc = Block_out[2:0];
 
-    // Exception logic
-    wire [2:0] ExpSel;
-    assign ExpSel[0] = (BlockSrc[0]) ? 1'b0 : ExpSrc0;
-    assign ExpSel[1] = (BlockSrc[1]) ? 1'b0 : ExpSrc1;
-    assign ExpSel[2] = (BlockSrc[2]) ? 1'b0 : ExpSrc2;
+    // Exception check
+    wire [2:0] ExpSel = {
+        (BlockSrc[2]) ? 1'b0 : ExpSrc2,
+        (BlockSrc[1]) ? 1'b0 : ExpSrc1,
+        (BlockSrc[0]) ? 1'b0 : ExpSrc0
+    };
+    wire ExpClick = (|ExpSel) & ~ExpBlock;
 
-    wire ExpClick = |ExpSel & ~ExpBlock;
-    reg counter1_out, counter2_out;
-
+    // Simple 1-bit toggle counters
+    reg counter1_out = 0, counter2_out = 0;
     assign HasExp = clk & counter1_out;
 
-    always @(posedge ExpClick or posedge counter2_out) begin
-        if (counter2_out)
-            counter1_out <= 1'b0;
-        else
-            counter1_out <= 1'b1;
-    end
+    always @(posedge ExpClick or posedge counter2_out)
+        counter1_out <= (counter2_out) ? 1'b0 : 1'b1;
 
-    always @(posedge HasExp or negedge counter1_out) begin
-        if (!counter1_out)
-            counter2_out <= 1'b0;
-        else
-            counter2_out <= 1'b1;
-    end
+    always @(posedge HasExp or negedge counter1_out)
+        counter2_out <= (!counter1_out) ? 1'b0 : 1'b1;
 
-    // Register write control
-    wire [3:0] reg_sel;
+    // Register write enable logic
     wire enable_write = enable & ~ExRegWrite;
+    wire EPC_en    = HasExp | (enable_write & (sel == 2'b00));
+    wire Status_en = enable_write & (sel == 2'b01);
+    wire Block_en  = enable_write & (sel == 2'b10);
+    wire Cause_en  = ExpClick;
 
-    assign reg_sel[0] = (sel == 2'b00);
-    assign reg_sel[1] = (sel == 2'b01);
-    assign reg_sel[2] = (sel == 2'b10);
-    assign reg_sel[3] = (sel == 2'b11);
-
-    wire EPC_en    = HasExp | (enable_write & reg_sel[0]);
-    wire Status_en = enable_write & reg_sel[1];
-    wire Block_en  = enable_write & reg_sel[2];
-
+    // EPC input mux
     wire [31:0] EPC_in = HasExp ? PCin : Din;
-    reg [31:0] EPC_out, Status_out, Block_out, Cause_out;
 
+    // Register update
     always @(posedge clk or posedge reset) begin
         if (reset) begin
             EPC_out    <= 32'd0;
@@ -76,20 +68,17 @@ module CP0 (
         end
     end
 
-    assign ExpBlock = Status_out[0];
-    assign BlockSrc = Block_out[2:0];
-    assign PCout = EPC_out;
-
-    wire [31:0] Cause_in;
-    assign Cause_in = ExpSrc0 ? 32'h00000001 :
-                      ExpSrc1 ? 32'h00000003 :
-                      ExpSrc2 ? 32'h00000007 :
-                                  32'bz;
+    // Cause register
+    wire [31:0] Cause_in = ExpSrc0 ? 32'h00000001 :
+                           ExpSrc1 ? 32'h00000003 :
+                           ExpSrc2 ? 32'h00000007 :
+                                     32'b0;
 
     always @(posedge ExpClick) begin
         Cause_out <= Cause_in;
     end
 
+    // Read MUX
     always @(*) begin
         case (sel)
             2'b00: Dout = EPC_out;

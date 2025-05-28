@@ -1,6 +1,6 @@
 module single_cycle_cpu(
 	input clk, reset,
-	input expesrc0, expsrc1, expsrc2,
+	input expsrc0, expsrc1, expsrc2,
 	output [10:0] cnt_i, cnt_r, cnt_j, cnt_clk,
 	output [31:0] hex
 );
@@ -55,7 +55,7 @@ module single_cycle_cpu(
 
 
 	// Program Counter
-	assign pc_clk = ((iseret & iscop0)|hasexp) ? ~clk : clk;
+
 
 	pc_module my_pc (.PresentPC(present_pc),
 		.ExtendInst(extend_inst),
@@ -73,12 +73,14 @@ module single_cycle_cpu(
 		.clk(clk),
 		.PCOut(next_pc));
 
-	always @(posedge pc_clk or posedge reset) begin
-        	if (reset)
-        		present_pc <= 32'b0;
-    		else
-        		present_pc <= next_pc;
+	always @(*) begin
+    	if (reset)
+        	present_pc <= 32'b0;
+    	else
+        	present_pc <= next_pc;
 	end
+
+
 
 	// Instruction Memory
 	instruction_memory my_instruc (.pc(present_pc),
@@ -154,9 +156,10 @@ module single_cycle_cpu(
 
 
 	// CP0
-	always@(posedge hasexp)
-		pc_buf <= present_pc;
-
+	always@(posedge hasexp or posedge reset) begin
+		if(reset) pc_buf <= 32'b0;
+		else pc_buf <= present_pc;
+	end
 	CP0 my_cp0 (.Inst(instruction),
 		.PCin(pc_buf),
 		.Din(reg2_out),
@@ -164,6 +167,7 @@ module single_cycle_cpu(
 		.ExpSrc1(expsrc1),
 		.ExpSrc2(expsrc2),
 		.clk(clk),
+		.reset(reset),
 		.enable(iscop0),
 		.ExRegWrite(exregwrite),
 		.IsEret(iseret),
