@@ -1,17 +1,23 @@
+
 `timescale 1ns / 1ps
 
 module tb_syscall_decoder;
 
+    // ??
     reg clk;
     reg Enable;
     reg [31:0] v0;
     reg [31:0] a0;
+
+    // ??
     wire Halt;
     wire [31:0] Hex;
+    wire reset;
 
-    // DUT
+    // ??? ?? ????
     syscall_decoder uut (
         .clk(clk),
+        .reset(reset),
         .Enable(Enable),
         .v0(v0),
         .a0(a0),
@@ -19,53 +25,45 @@ module tb_syscall_decoder;
         .Hex(Hex)
     );
 
-    // Clock generation
+    // ?? ??
+    always #5 clk = ~clk;
+
     initial begin
+        $display("--- Starting syscall_decoder Testbench ---");
+
+        // ??? ??
+	reset =1;
         clk = 0;
-        forever #5 clk = ~clk;
-    end
+        Enable = 0;
+        v0 = 0;
+        a0 = 0;
 
-    initial begin
-        $display("--- Starting syscall_unit Testbench ---");
-
-        // Test 1: v0 != 10 (no halt)
-        v0 = 32'h00000005;
-        a0 = 32'hDEADBEEF;
-        Enable = 1'b1;
-        #1;
-        $display("<Test 1>");
-        $display("Input  : v0 = %h, Enable = %h", v0, Enable);
-        $display("Output : Halt = %h", Halt);
-        $display("Before clk : a0 = %h, Hex = %h", a0, Hex);
-        #9;
-        $display("After clk  : a0 = %h, Hex = %h", a0, Hex);
-
-        // Test 2: v0 == 10 (halt expected)
-        v0 = 32'h0000000A;
-        a0 = 32'hCAFEBABE;
-        Enable = 1'b1;
-        #1;
-        $display("<Test 2>");
-        $display("Input  : v0 = %h, Enable = %h", v0, Enable);
-        $display("Output : Halt = %h", Halt);
-        $display("Before clk : a0 = %h, Hex = %h", a0, Hex);
-        #9;
-        $display("After clk  : a0 = %h, Hex = %h", a0, Hex);
-
-        // Test 3: Enable = 0 (Hex should not update)
-        v0 = 32'h0000000A;
+        // Test 1: Enable = 1, v0 ? 10 ? Halt = 0
+        #10;
+        Enable = 1;
+        v0 = 32'd5;
         a0 = 32'h12345678;
-        Enable = 1'b0;
-        #1;
-        $display("<Test 3>");
-        $display("Input  : v0 = %h, Enable = %h", v0, Enable);
-        $display("Output : Halt = %h", Halt);
-        $display("Before clk : a0 = %h, Hex = %h", a0, Hex);
-        #9;
-        $display("After clk  : a0 = %h, Hex = %h", a0, Hex);
+        #10;
+        $display("<Test 1: v0 ? 10>");
+        $display("v0 = 0x%08h, a0 = 0x%08h, Hex = 0x%08h, Halt = %b", v0, a0, Hex, Halt);
 
-        $display("--- Testbench Complete ---");
-        $finish;
+        // Test 2: Enable = 1, v0 == 10 ? Halt = 1
+        v0 = 32'd10;  // syscall 10
+        a0 = 32'hDEADBEEF;
+        #10;
+        $display("<Test 2: v0 == 10>");
+        $display("v0 = 0x%08h, a0 = 0x%08h, Hex = 0x%08h, Halt = %b", v0, a0, Hex, Halt);
+
+        // Test 3: Enable = 0 ? hex_reg ??, Halt = 0
+        Enable = 0;
+        v0 = 32'd10;
+        a0 = 32'hAAAAAAAA;  // ? ?? ???? ??? ?
+        #10;
+        $display("<Test 3: Enable = 0>");
+        $display("v0 = 0x%08h, a0 = 0x%08h, Hex = 0x%08h, Halt = %b", v0, a0, Hex, Halt);
+
+        $display("--- End of Testbench ---");
+        $stop;
     end
-endmodule
 
+endmodule

@@ -6,10 +6,12 @@ module single_cycle_cpu(
 );
 	
 	// Program Counter
-	wire [31:0] present_pc;
+	wire pc_clk;
+	reg [31:0] present_pc;
+	wire [31:0] next_pc;
 
 	// Instruction Memory
-	wire [31:0] instruction;
+	reg [31:0] instruction;
 
 	// Control Unit
 	wire isjal, regwrite, memtoreg, iscop0, memwrite, memread, isjr, branch, bneorbeq, jump,
@@ -53,30 +55,31 @@ module single_cycle_cpu(
 
 
 	// Program Counter
-	wire [31:0] pc_4;
-	wire [31:0] logic_left_pc;
-	wire [31:0] branch_pc;
-	wire [31:0] temp_jump_pc;
-	wire [31:0] jump_pc;
-	wire [31:0] jr_pc;
+	assign pc_clk = ((iseret & iscop0)|hasexp) ? ~clk : clk;
 
-	assign pc_4 = present_pc + 32'd4;
-	assign logic_left_pc = extend_inst << 2;
-	assign branch_pc = ((equal ^ bneorbeq)&branch) ? (pc_4 + logic_left_pc) : pc_4;
-
-	assign temp_jump_pc = {pc_4[31:28], instruction[25:0], 2'b00};
-	assign jump_pc = (~jump) ? branch_pc : temp_jump_pc;
-	
-	assign jr_pc = (isjr) ? reg1_out : jump_pc;
-
-	pc_module my_pc (.clk(clk),
-		.HasExp(hasexp),
+	pc_module my_pc (.PresentPC(present_pc),
+		.ExtendInst(extend_inst),
+		.Instr(instruction),
+		.RegfileR1(reg1_out),
+		.EPC(cp0_pcout),
+		.Equal(equal),
+		.BneOrBeq(bneorbeq),
+		.Branch(branch),
+		.Jump(jump),
+		.IsJR(isjr),
 		.IsEret(iseret),
 		.IsCOP0(iscop0),
-		.next_pc(instruction),
-		.epc(cp0_pcout),
-		.pc_out(jr_pc));
-	
+		.HasExp(hasexp),
+		.clk(clk),
+		.PCOut(next_pc));
+
+	always @(posedge pc_clk or posedge reset) begin
+        	if (reset)
+        		present_pc <= 32'b0;
+    		else
+        		present_pc <= next_pc;
+	end
+
 	// Instruction Memory
 	instruction_memory my_instruc (.pc(present_pc),
 			.data(instruction));
@@ -179,15 +182,18 @@ module single_cycle_cpu(
 				.a0(reg2_out),
 				.Enable(issyscall),
 				.clk(clk),
+				.reset(reset),
 				.Halt(halt),
 				.Hex(hex));
 
 	// Statistics
 	statistics my_stat(.clk(clk),
+			.reset(reset),
 			.op(instruction[31:26]),
 			.i(cnt_i),
 			.r(cnt_r),
-			.j(cnt_j));
+			.j(cnt_j),
+			.cnt_clk(cnt_clk));
 
 endmodule
 

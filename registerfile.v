@@ -7,23 +7,31 @@ module registerfile (
     input wire [31:0] write_data,
     output wire [31:0] reg1_data,
     output wire [31:0] reg2_data,
-    output wire a0,
-    output wire v0
+    output wire [31:0] a0,
+    output wire [31:0] v0
 );
 
     // 32?? 32?? ???? ??
     reg [31:0] registers [0:31];
+    integer i;
+
+    initial begin
+        for (i = 0; i < 32; i = i + 1) begin
+            registers[i] = 32'b0;
+        end
+    end
 
     // Read operations (???)
     assign reg1_data = registers[reg1_addr];
     assign reg2_data = registers[reg2_addr];
-
+    assign v0 = registers[2];
+    assign a0 = registers[4];
     // Write operation (??)
     always @(posedge clk) begin
-        if (WE && write_addr != 0) begin
+        if (WE) begin
             registers[write_addr] <= write_data;
         end
     end
-
+	
 endmodule
 

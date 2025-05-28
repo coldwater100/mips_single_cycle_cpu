@@ -9,7 +9,7 @@ module tb_single_cycle_cpu;
 
 	// 1clk? 10ns
 	always #5 clk = ~clk;
-
+	always #5 $display ("%d",hex);
 	initial begin 
 		clk = 0;
 		reset = 1;
@@ -19,7 +19,7 @@ module tb_single_cycle_cpu;
 
 		#20 reset = 0;
 
-		#16450 $finish;
+		#16450 $stop;
 	end
 
 	single_cycle_cpu my_cpu(

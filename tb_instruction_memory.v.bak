@@ -2,28 +2,43 @@
 
 module tb_instruction_memory;
 
-    reg  [31:0] pc;       // ?? PC ??
-    wire [31:0] instr;    // ??? ??
+    // ??
+    reg [31:0] pc;
 
-    // DUT (Device Under Test)
-    instruction_memory dut (
-        .pc(pc[11:2]),  // PC? 2~10? ??? ?? (?? ?? ??)
-        .data(instr)
+    // ??
+    wire [31:0] data;
+
+    // ??? ?? ?? ?????
+    instruction_memory uut (
+        .pc(pc),
+        .data(data)
     );
 
-    integer i;
-
     initial begin
-        $display("----- Starting Instruction Memory Test -----");
+        $display("\n=== Instruction Memory Testbench ===\n");
 
-        // ?? ??? ?? ??? ?? ??
-        for (i = 0; i < 16; i = i + 1) begin
-            pc = i * 4; #10; // PC? 4??? ?? ??
-            $display("PC = 0x%08h -> Instruction = 0x%08h", pc, instr);
-        end
+        // ???
+        pc = 32'h00000000;
+        #10 $display("pc = 0x%08h, data = 0x%08h", pc, data);
 
-        $display("----- Test Complete -----");
-        $stop;
+        pc = 32'h00000004;
+        #10 $display("pc = 0x%08h, data = 0x%08h", pc, data);
+
+        pc = 32'h00000008;
+        #10 $display("pc = 0x%08h, data = 0x%08h", pc, data);
+
+        pc = 32'h00000800; // sel = 1, rom1?? ?? ??
+        #10 $display("pc = 0x%08h, data = 0x%08h", pc, data);
+
+        pc = 32'h00000804;
+        #10 $display("pc = 0x%08h, data = 0x%08h", pc, data);
+
+        pc = 32'h00000808;
+        #10 $display("pc = 0x%08h, data = 0x%08h", pc, data);
+
+        $display("\n=== Testbench End ===");
+        $finish;
     end
 
 endmodule
+

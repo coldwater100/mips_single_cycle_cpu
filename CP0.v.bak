@@ -23,11 +23,12 @@ module CP0 (
 
     // exception signal
     wire BlockSrc0, BlockSrc1, BlockSrc2;
-    wire [2:0] exp_sel;
-    wire [1:0] dmx0_out = {1'b0,exp_sel[0]};
-    wire [1:0] dmx1_out = {1'b0,exp_sel[1]};
-    wire [1:0] dmx2_out = {1'b0,exp_sel[2]};
-    
+    wire [1:0] dmx0_out;
+    wire [1:0] dmx1_out;
+    wire [1:0] dmx2_out;
+    wire [2:0] exp_sel = {dmx2_out[0],dmx1_out[0],dmx0_out[0]};
+
+
 
     dmx #(.select_bit(1), .data_bits(1)) dmx0 (
         .in(ExpSrc0),
@@ -74,8 +75,8 @@ module CP0 (
 
     // Registers
 
-    wire [3:0] reg_dmx_out;
-    wire [2:0] reg_dmx_out_extend = {1'b0,reg_dmx_out};
+    wire [2:0] reg_dmx_out;
+    wire [3:0] reg_dmx_out_extend = {1'b0,reg_dmx_out};
 
     dmx #(.select_bit(2), .data_bits(1)) reg_dmx (
         .in(1'b1),

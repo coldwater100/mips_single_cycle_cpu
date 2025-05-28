@@ -1,45 +1,73 @@
-`timescale 1ns/1ps
+`timescale 1ns / 1ps
 
 module tb_statistics;
 
-    reg  [5:0] op;
-    wire i, r, j;
+    // Inputs
+    reg clk;
+    reg reset;
+    reg [5:0] op;
 
+    // Outputs
+    wire [10:0] i;
+    wire [10:0] r;
+    wire [10:0] j;
+    wire [10:0] cnt_clk;
+
+    // Instantiate DUT
     statistics uut (
+        .clk(clk),
+        .reset(reset),
         .op(op),
         .i(i),
         .r(r),
-        .j(j)
+        .j(j),
+        .cnt_clk(cnt_clk)
     );
+
+    // Clock generator
+    initial clk = 0;
+    always #5 clk = ~clk;
+
+    task apply_op;
+        input [5:0] op_val;
+        begin
+            op = op_val;
+            @(posedge clk); #1;
+            $display("Time %0t | op = %b | i = %d | r = %d | j = %d | clk = %d",
+                     $time, op, i, r, j, cnt_clk);
+        end
+    endtask
 
     initial begin
         $display("--- Starting statistics Testbench ---");
 
-        // R-type Test
-        op = 6'b000000; #10;
-        $display("Test R-type: op = %b | i = %b, r = %b, j = %b", op, i, r, j);
+        // Reset
+        reset = 1;
+        op = 6'b000000;
+        @(posedge clk); #1;
+        reset = 0;
 
-        // J-type Test - j
-        op = 6'b000010; #10;
-        $display("Test J-type (j): op = %b | i = %b, r = %b, j = %b", op, i, r, j);
+        // R-type instruction
+        apply_op(6'b000000);  // R-type
 
-        // J-type Test - jal
-        op = 6'b000011; #10;
-        $display("Test J-type (jal): op = %b | i = %b, r = %b, j = %b", op, i, r, j);
+        // I-type instructions (multiple valid types)
+        apply_op(6'b100011);  // lw
+        apply_op(6'b101011);  // sw
+        apply_op(6'b001000);  // addi
+        apply_op(6'b001100);  // andi
 
-        // I-type Test - addi (8)
-        op = 6'b001000; #10;
-        $display("Test I-type (addi): op = %b | i = %b, r = %b, j = %b", op, i, r, j);
+        // J-type instructions
+        apply_op(6'b000010);  // j
+        apply_op(6'b000011);  // jal
 
-        // I-type Test - lw (35)
-        op = 6'b100011; #10;
-        $display("Test I-type (lw): op = %b | i = %b, r = %b, j = %b", op, i, r, j);
+        // Other NOP or undefined instruction
+        apply_op(6'b111111);  // should not be counted
 
-        // I-type Test - sw (43)
-        op = 6'b101011; #10;
-        $display("Test I-type (sw): op = %b | i = %b, r = %b, j = %b", op, i, r, j);
+        // Check final result
+        @(posedge clk); #1;
+        $display("Final Count => i: %d, r: %d, j: %d, clk: %d", i, r, j, cnt_clk);
 
-        $display("--- Test Complete ---");
+        $display("--- End of statistics Testbench ---");
         $stop;
     end
 

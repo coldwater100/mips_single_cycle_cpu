@@ -1,96 +1,74 @@
-`timescale 1ns / 1ps
+`timescale 1ns/1ps
 
 module tb_pc_module;
 
-    // Inputs
     reg clk;
-    reg HasExp;
-    reg IsEret;
-    reg IsCOP0;
-    reg [31:0] next_pc;
-    reg [31:0] epc;
+    reg HasExp, IsEret, IsCOP0, IsJR, Jump, Branch, BneOrBeq, Equal;
+    reg [31:0] Instr, PresentPC, ExtendInst, RegfileR1, EPC;
+    wire [31:0] PCOut;
 
-    // Output
-    wire [31:0] pc_out;
-
-    // Instantiate the Unit Under Test (UUT)
+    // DUT instantiation
     pc_module uut (
         .clk(clk),
         .HasExp(HasExp),
         .IsEret(IsEret),
         .IsCOP0(IsCOP0),
-        .next_pc(next_pc),
-        .epc(epc),
-        .pc_out(pc_out)
+        .IsJR(IsJR),
+        .Jump(Jump),
+        .Branch(Branch),
+        .BneOrBeq(BneOrBeq),
+        .Equal(Equal),
+        .Instr(Instr),
+        .PresentPC(PresentPC),
+        .ExtendInst(ExtendInst),
+        .RegfileR1(RegfileR1),
+        .EPC(EPC),
+        .PCOut(PCOut)
     );
 
-    // Clock generator
-    always #5 clk = ~clk;
-
     initial begin
-        $display("--- Starting pc_module Testbench ---");
+        $display("Time | HasExp IsEret IsCOP0 IsJR Jump Branch BneOrBeq Equal | PCOut");
+        $monitor("%4t |    %b      %b      %b     %b    %b      %b       %b      %b  | %h",
+                 $time, HasExp, IsEret, IsCOP0, IsJR, Jump, Branch, BneOrBeq, Equal, PCOut);
 
-        // Initialize inputs
-        clk     = 0;
-        next_pc = 32'h00000004;
-        epc     = 32'h00001234;
+        // ???
+        clk = 0;
+        PresentPC = 32'h00400000;
+        ExtendInst = 32'd4;
+        Instr = 32'h08000004; // jump target: 0x00000010 (<<2)
+        RegfileR1 = 32'h10000000;
+        EPC = 32'h00001234;
 
-        // Test 1: Normal PC (no exception, no eret)
-        HasExp  = 0;
-        IsEret  = 0;
-        IsCOP0  = 0;
-        #10;
-        $display("<Test 1: Normal PC>");
-        $display("Input  : HasExp = %b, IsEret = %b, IsCOP0 = %b", HasExp, IsEret, IsCOP0);
-        $display("Output : PC = %h (Expected: next_pc = %h)\n", pc_out, next_pc);
+        // ??? ??? 1: ?? PC+4
+        HasExp = 0; IsEret = 0; IsCOP0 = 0; IsJR = 0;
+        Jump = 0; Branch = 0; BneOrBeq = 0; Equal = 0;
+        #10 clk = ~clk; #10 clk = ~clk;
 
-        // Test 2: Only IsCOP0 = 1 (no eret)
-        HasExp  = 0;
-        IsEret  = 0;
-        IsCOP0  = 1;
-        #10;
-        $display("<Test 2: Only IsCOP0 = 1>");
-        $display("Input  : HasExp = %b, IsEret = %b, IsCOP0 = %b", HasExp, IsEret, IsCOP0);
-        $display("Output : PC = %h (Expected: next_pc = %h)\n", pc_out, next_pc);
+        // ??? ??? 2: Branch ??? ??
+        HasExp = 0; IsEret = 0; IsCOP0 = 0; IsJR = 0;
+        Jump = 0; Branch = 1; BneOrBeq = 1; Equal = 1;
+        #10 clk = ~clk; #10 clk = ~clk;
 
-        // Test 3: Only IsEret = 1 (no cop0)
-        HasExp  = 0;
-        IsEret  = 1;
-        IsCOP0  = 0;
-        #10;
-        $display("<Test 3: Only IsEret = 1>");
-        $display("Input  : HasExp = %b, IsEret = %b, IsCOP0 = %b", HasExp, IsEret, IsCOP0);
-        $display("Output : PC = %h (Expected: next_pc = %h)\n", pc_out, next_pc);
+        // ??? ??? 3: Jump
+        HasExp = 0; IsEret = 0; IsCOP0 = 0; IsJR = 0;
+        Jump = 1; Branch = 0; BneOrBeq = 0; Equal = 0;
+        #10 clk = ~clk; #10 clk = ~clk;
 
-        // Test 4: Eret + COP0 (should use EPC)
-        HasExp  = 0;
-        IsEret  = 1;
-        IsCOP0  = 1;
-        #10;
-        $display("<Test 4: Eret + COP0>");
-        $display("Input  : HasExp = %b, IsEret = %b, IsCOP0 = %b", HasExp, IsEret, IsCOP0);
-        $display("Output : PC = %h (Expected: EPC = %h)\n", pc_out, epc);
+        // ??? ??? 4: JR
+        HasExp = 0; IsEret = 0; IsCOP0 = 0; IsJR = 1;
+        Jump = 0; Branch = 0; BneOrBeq = 0; Equal = 0;
+        #10 clk = ~clk; #10 clk = ~clk;
 
-        // Test 5: Exception (override all)
-        HasExp  = 1;
-        IsEret  = 0;
-        IsCOP0  = 0;
-        #10;
-        $display("<Test 5: Exception>");
-        $display("Input  : HasExp = %b, IsEret = %b, IsCOP0 = %b", HasExp, IsEret, IsCOP0);
-        $display("Output : PC = %h (Expected: 0x00000800)\n", pc_out);
+        // ??? ??? 5: ERET
+        HasExp = 0; IsEret = 1; IsCOP0 = 1; IsJR = 0;
+        #10 clk = ~clk; #10 clk = ~clk;
 
-        // Test 6: Eret + COP0 + Exception (exception takes priority)
-        HasExp  = 1;
-        IsEret  = 1;
-        IsCOP0  = 1;
-        #10;
-        $display("<Test 6: Eret + COP0 + Exception>");
-        $display("Input  : HasExp = %b, IsEret = %b, IsCOP0 = %b", HasExp, IsEret, IsCOP0);
-        $display("Output : PC = %h (Expected: 0x00000800)\n", pc_out);
+        // ??? ??? 6: ?? ??
+        HasExp = 1; IsEret = 0; IsCOP0 = 0; IsJR = 0;
+        #10 clk = ~clk; #10 clk = ~clk;
 
-        $display("--- End of Testbench ---");
         $stop;
     end
 
 endmodule
+

@@ -1,6 +1,6 @@
 `timescale 1ns / 1ps
 
-module CP0_tb;
+module tb_CP0;
 
     // Input signals
     reg [31:0] Inst;
