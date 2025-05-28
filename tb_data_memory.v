@@ -2,7 +2,7 @@
 
 `timescale 1ns / 1ps
 
-module tb_ram_module;
+module tb_data_memory;
     // Inputs
     reg clk;
     reg sel;
@@ -16,7 +16,7 @@ module tb_ram_module;
     wire [31:0] data_out;
 
     // Instantiate the RAM module
-    ram_module uut (
+    data_memory uut (
         .clk(clk),
         .sel(sel),
         .str(str),

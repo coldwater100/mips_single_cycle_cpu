@@ -1,1 +1,38 @@
+// ram_module.v - Logisim-style RAM with separate load/store ports
+
+module ram_module (
+    input wire clk,              // ??
+    input wire sel,              // ? ?? (1?? ??)
+    input wire str,              // Store enable
+    input wire ld,               // Load enable
+    input wire clr,              // Clear all
+    input wire [9:0] addr,       // 10?? ?? (1024? ?)
+    input wire [31:0] data_in,   // ??? ??? (???)
+    output reg [31:0] data_out   // ?? ??? (???)
+);
+
+    // 1024?? 32?? ??? ?
+    reg [31:0] mem [0:1023];
+
+    integer i;
+
+    // ???
+    always @(posedge clk or posedge clr) begin
+        if (clr) begin
+            for (i = 0; i < 1024; i = i + 1)
+                mem[i] <= 32'b0;
+        end else if (sel && str) begin
+            mem[addr] <= data_in;
+        end
+    end
+
+    // ??? ?? (ld? 1?? ??)
+    always @(*) begin
+        if (sel && ld)
+            data_out = mem[addr];
+        else
+            data_out = 32'bz; // ?? ???? ? high impedance
+    end
+
+endmodule
 

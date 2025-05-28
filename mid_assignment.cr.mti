@@ -5,6 +5,20 @@ Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  
 Top level modules:
 	immediate_sign_extend
 
+} {} {}} D:/verilog_projects/mid_assignment/controlled_buffer.v {1 {vlog -work work -stats=none D:/verilog_projects/mid_assignment/controlled_buffer.v
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module controlled_buffer
+
+Top level modules:
+	controlled_buffer
+
+} {} {}} D:/verilog_projects/mid_assignment/single_cycle_cpu.v {1 {vlog -work work -stats=none D:/verilog_projects/mid_assignment/single_cycle_cpu.v
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module single_cycle_cpu
+
+Top level modules:
+	single_cycle_cpu
+
 } {} {}} D:/verilog_projects/mid_assignment/pc_module.v {1 {vlog -work work -stats=none D:/verilog_projects/mid_assignment/pc_module.v
 Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
 -- Compiling module pc_module
@@ -61,6 +75,20 @@ Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  
 Top level modules:
 	statistics
 
+} {} {}} D:/verilog_projects/mid_assignment/tb_single_cycle_cpu.v {1 {vlog -work work -stats=none D:/verilog_projects/mid_assignment/tb_single_cycle_cpu.v
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module tb_single_cycle_cpu
+
+Top level modules:
+	tb_single_cycle_cpu
+
+} {} {}} D:/verilog_projects/mid_assignment/registerfile.v {1 {vlog -work work -stats=none D:/verilog_projects/mid_assignment/registerfile.v
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module registerfile
+
+Top level modules:
+	registerfile
+
 } {} {}} D:/verilog_projects/mid_assignment/tb_syscall_decoder.v {1 {vlog -work work -stats=none D:/verilog_projects/mid_assignment/tb_syscall_decoder.v
 Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
 -- Compiling module tb_syscall_decoder
@@ -84,12 +112,12 @@ Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  
 Top level modules:
 	ALU_decoder
 
-} {} {}} D:/verilog_projects/mid_assignment/tb_data_memory.v {1 {vlog -work work -stats=none D:/verilog_projects/mid_assignment/tb_data_memory.v
+} {} {}} D:/verilog_projects/mid_assignment/tb_alu.v {1 {vlog -work work -stats=none D:/verilog_projects/mid_assignment/tb_alu.v
 Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
--- Compiling module tb_ram_module
+-- Compiling module tb_alu
 
 Top level modules:
-	tb_ram_module
+	tb_alu
 
 } {} {}} D:/verilog_projects/mid_assignment/tb_instruction_memory.v {1 {vlog -work work -stats=none D:/verilog_projects/mid_assignment/tb_instruction_memory.v
 Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
@@ -98,12 +126,19 @@ Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  
 Top level modules:
 	tb_instruction_memory
 
-} {} {}} D:/verilog_projects/mid_assignment/tb_alu.v {1 {vlog -work work -stats=none D:/verilog_projects/mid_assignment/tb_alu.v
+} {} {}} D:/verilog_projects/mid_assignment/tb_data_memory.v {1 {vlog -work work -stats=none D:/verilog_projects/mid_assignment/tb_data_memory.v
 Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
--- Compiling module tb_alu
+-- Compiling module tb_data_memory
 
 Top level modules:
-	tb_alu
+	tb_data_memory
+
+} {} {}} D:/verilog_projects/mid_assignment/tb_CP0.v {1 {vlog -work work -stats=none D:/verilog_projects/mid_assignment/tb_CP0.v
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module CP0_tb
+
+Top level modules:
+	CP0_tb
 
 } {} {}} D:/verilog_projects/mid_assignment/syscall_decoder.v {1 {vlog -work work -stats=none D:/verilog_projects/mid_assignment/syscall_decoder.v
 Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
@@ -119,19 +154,19 @@ Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  
 Top level modules:
 	tb_statistics
 
+} {} {}} D:/verilog_projects/mid_assignment/counter.v {1 {vlog -work work -stats=none D:/verilog_projects/mid_assignment/counter.v
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module counter
+
+Top level modules:
+	counter
+
 } {} {}} D:/verilog_projects/mid_assignment/dmx.v {1 {vlog -work work -stats=none D:/verilog_projects/mid_assignment/dmx.v
 Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
 -- Compiling module dmx
 
 Top level modules:
 	dmx
-
-} {} {}} D:/verilog_projects/mid_assignment/data_memory.v {1 {vlog -work work -stats=none D:/verilog_projects/mid_assignment/data_memory.v
-Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
--- Compiling module ram_module
-
-Top level modules:
-	ram_module
 
 } {} {}} D:/verilog_projects/mid_assignment/alu.v {1 {vlog -work work -stats=none D:/verilog_projects/mid_assignment/alu.v
 Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
@@ -147,6 +182,13 @@ Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  
 Top level modules:
 	mux
 
+} {} {}} D:/verilog_projects/mid_assignment/data_memory.v {1 {vlog -work work -stats=none D:/verilog_projects/mid_assignment/data_memory.v
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module data_memory
+
+Top level modules:
+	data_memory
+
 } {} {}} D:/verilog_projects/mid_assignment/tb_immediate_sign_extend.v {1 {vlog -work work -stats=none D:/verilog_projects/mid_assignment/tb_immediate_sign_extend.v
 Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
 -- Compiling module tb_immediate_sign_extend
@@ -154,8 +196,12 @@ Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  
 Top level modules:
 	tb_immediate_sign_extend
 
-} {} {}} D:/verilog_projects/mid_assignment/control_unit.vhd {1 {vlog -work work -stats=none D:/verilog_projects/mid_assignment/control_unit.vhd
+} {} {}} D:/verilog_projects/mid_assignment/CP0.v {1 {vlog -work work -stats=none D:/verilog_projects/mid_assignment/CP0.v
 Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module CP0
+
+Top level modules:
+	CP0
 
 } {} {}} D:/verilog_projects/mid_assignment/tb_pc_module.v {1 {vlog -work work -stats=none D:/verilog_projects/mid_assignment/tb_pc_module.v
 Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016

@@ -15,8 +15,8 @@ module pc_module (
 
     mux #(.select_bit(1), .data_bits(32)) mux1 (
         .sel(select1),
-        .data_in(mux1_in),
-        .data_out(after_mux1)
+        .data_bus(mux1_in),
+        .out(after_mux1)
     );
 
     // mux2: HasExp?? ?? ?? 0x800 ??
@@ -26,8 +26,8 @@ module pc_module (
 
     mux #(.select_bit(1), .data_bits(32)) mux2 (
         .sel(HasExp),
-        .data_in(mux2_in),
-        .data_out(after_mux2)
+        .data_bus(mux2_in),
+        .out(after_mux2)
     );
 
     // ?? ???
@@ -36,8 +36,8 @@ module pc_module (
 
     mux #(.select_bit(1), .data_bits(1)) clk_mux (
         .sel(select1 | HasExp),
-        .data_in(clk_mux_in),
-        .data_out(gated_clk)
+        .data_bus(clk_mux_in),
+        .out(gated_clk)
     );
 
     // PC ???? ??

@@ -1,6 +1,6 @@
 // ram_module.v - Logisim-style RAM with separate load/store ports
 
-module ram_module (
+module data_memory (
     input wire clk,              // ??
     input wire sel,              // ? ?? (1?? ??)
     input wire str,              // Store enable
