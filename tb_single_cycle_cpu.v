@@ -17,7 +17,7 @@ module tb_single_cycle_cpu;
 		expsrc1 = 0;
 		expsrc2 = 0;
 
-		#20 reset = 0;
+		#5 reset = 0;
 
 		#16450 $stop;
 	end

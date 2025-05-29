@@ -73,10 +73,10 @@ module single_cycle_cpu(
 		.clk(clk),
 		.PCOut(next_pc));
 
-	always @(posedge clk or posedge reset) begin
+	always @(*) begin
     	if (reset)
         	present_pc <= 32'b0;
-    	else if ((iseret & iscop0)|hasexp | (~(iseret & iscop0) & ~hasexp))  // ?? ?? ? PC ??
+    	else
         	present_pc <= next_pc;
 	end
 

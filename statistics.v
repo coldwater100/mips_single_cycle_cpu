@@ -11,13 +11,13 @@ module statistics(
     	wire is_i, is_r, is_j;
 
    	// i-type
-    	assign is_i = (op == 6'b000010) || (op == 6'b000011);
+    	assign is_i = ~is_r & ~is_j;
 
     	// R-type
     	assign is_r = (op == 6'b000000);
 
     	// J-type
-    	assign is_j = ~is_r & ~is_i;
+    	assign is_j = (op == 6'b000010) || (op == 6'b000011);
 	
     	always @(posedge clk or posedge reset) begin
     		if (reset) begin

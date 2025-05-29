@@ -146,6 +146,7 @@ module single_cycle_cpu(
 
 	// Data Memory
 	data_memory my_data_mem (.clk(clk),
+				.sel(1'b1),
 				.str(memwrite),
 				.ld(memread),
 				.addr(alu_out[11:2]),

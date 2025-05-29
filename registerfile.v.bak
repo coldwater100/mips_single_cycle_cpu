@@ -13,12 +13,14 @@ module registerfile (
 
     // 32?? 32?? ???? ??
     reg [31:0] registers [0:31];
+    integer i;
+
     initial begin
-        integer i;
         for (i = 0; i < 32; i = i + 1) begin
             registers[i] = 32'b0;
         end
     end
+
     // Read operations (???)
     assign reg1_data = registers[reg1_addr];
     assign reg2_data = registers[reg2_addr];

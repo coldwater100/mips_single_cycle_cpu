@@ -28,7 +28,7 @@ module registerfile (
     assign a0 = registers[4];
     // Write operation (??)
     always @(posedge clk) begin
-        if (WE) begin
+        if (WE & write_addr!=0) begin
             registers[write_addr] <= write_data;
         end
     end

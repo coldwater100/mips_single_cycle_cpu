@@ -25,7 +25,7 @@ module tb_single_cycle_cpu;
 	single_cycle_cpu my_cpu(
 		.clk(clk),
 		.reset(reset),
-		.expesrc0(expesrc0),
+		.expsrc0(expesrc0),
 		.expsrc1(expsrc1),
 		.expsrc2(expsrc2),
 		.cnt_i(cnt_i),

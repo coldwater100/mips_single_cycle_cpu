@@ -17,7 +17,7 @@ module statistics(
     	assign is_r = (op == 6'b000000);
 
     	// J-type
-    	assign is_j = ~is_r & ~is_j;
+    	assign is_j = ~is_r & ~is_i;
 	
     	always @(posedge clk or posedge reset) begin
     		if (reset) begin
