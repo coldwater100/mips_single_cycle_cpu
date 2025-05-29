@@ -16,7 +16,7 @@ module tb_data_memory;
     wire [31:0] data_out;
 
     // Instantiate the RAM module
-    ram_module uut (
+    data_memory uut (
         .clk(clk),
         .sel(sel),
         .str(str),
@@ -38,15 +38,15 @@ module tb_data_memory;
         // Clear memory
         clr = 1; sel = 0; str = 0; ld = 0; addr = 0; data_in = 0;
         #10; clr = 0;
-
+	$display("store addr=10: data_in = %h", data_out);
         // Store data at address 10
         sel = 1; str = 1; ld = 0; addr = 10; data_in = 32'hDEADBEEF;
         #10;
-
+	$display("store addr=10: data_in = %h", data_in);
         // Store data at address 20
         addr = 20; data_in = 32'hCAFEBABE;
         #10;
-
+	$display("store addr=20: data_in = %h", data_in);
         // Read from address 10
         str = 0; ld = 1; addr = 10;
         #10;

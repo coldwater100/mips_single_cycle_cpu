@@ -5,7 +5,7 @@ module tb_single_cycle_cpu;
 	reg clk, reset;
 	reg expesrc0, expsrc1, expsrc2;
 	wire [10:0] cnt_i, cnt_r, cnt_j, cnt_clk;
-	wire [31:0] hex;
+	wire [31:0] syscall_decoder_output;
 
 	// 1clk? 10ns
 	always #5 clk = ~clk;
@@ -22,7 +22,7 @@ module tb_single_cycle_cpu;
 		#16450 $stop;
 	end
 
-	single_cycle_cpu my_cpu(
+	single_cycle_cpu cpu_inst(
 		.clk(clk),
 		.reset(reset),
 		.expsrc0(expesrc0),
@@ -32,7 +32,7 @@ module tb_single_cycle_cpu;
 		.cnt_r(cnt_r),
 		.cnt_j(cnt_j),
 		.cnt_clk(cnt_clk),
-		.hex(hex)
+		.syscall_decoder_output(syscall_decoder_output)
 	);
 
 endmodule

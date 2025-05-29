@@ -9,7 +9,7 @@ z2
 cModel Technology
 Z0 dD:/verilog_projects/mid_assignment
 vadder_32bit
-Z1 !s110 1748510894
+Z1 !s110 1748527123
 !i10b 1
 !s100 `Kna7U5ZIihO1in;Y5FVk3
 IbJk@=Qhi[l33:oFW@gkz?3
@@ -23,7 +23,7 @@ Z6 OV;L;10.5b;63
 r1
 !s85 0
 31
-Z7 !s108 1748510894.000000
+Z7 !s108 1748527123.000000
 Z8 !s107 D:/verilog_projects/mid_assignment/alu_lib.v|
 Z9 !s90 -reportprogress|300|-work|work|-stats=none|D:/verilog_projects/mid_assignment/alu_lib.v|
 !i113 1
@@ -51,7 +51,7 @@ R7
 R10
 R11
 vALU_decoder
-Z12 !s110 1748510895
+Z12 !s110 1748527124
 !i10b 1
 !s100 HYFM9mDilh50l1nlBMAfn0
 Im:WT^j5ni]z<S1KQnUSg62
@@ -65,7 +65,7 @@ R6
 r1
 !s85 0
 31
-Z16 !s108 1748510895.000000
+Z16 !s108 1748527124.000000
 Z17 !s107 D:/verilog_projects/mid_assignment/control_unit.v|
 Z18 !s90 -reportprogress|300|-work|work|-stats=none|D:/verilog_projects/mid_assignment/control_unit.v|
 !i113 1
@@ -285,7 +285,7 @@ R16
 R10
 R11
 vdmx
-R1
+R12
 !i10b 1
 !s100 W=>b<]o0G<@H7Ni]FQ>Y20
 I4T2kP:K@MecVV?62U6Sdm1
@@ -299,7 +299,7 @@ R6
 r1
 !s85 0
 31
-R7
+R16
 !s107 D:/verilog_projects/mid_assignment/dmx.v|
 !s90 -reportprogress|300|-work|work|-stats=none|D:/verilog_projects/mid_assignment/dmx.v|
 !i113 1
@@ -412,7 +412,7 @@ R7
 R10
 R11
 vinstruction_memory
-R1
+R12
 !i10b 1
 !s100 B2cA9I;oDe^8mbg9dV0S03
 ITfLm3<:cg9oODNo[``jzT1
@@ -426,7 +426,7 @@ R6
 r1
 !s85 0
 31
-R7
+R16
 Z26 !s107 D:/verilog_projects/mid_assignment/instruction_memory.v|
 Z27 !s90 -reportprogress|300|-work|work|-stats=none|D:/verilog_projects/mid_assignment/instruction_memory.v|
 !i113 1
@@ -645,7 +645,7 @@ R9
 R10
 R11
 vrom0
-R1
+R12
 !i10b 1
 !s100 gzC;0TjSfR]@jOf6cF_aK3
 I;G`;1zC]1_m9IW^j8k==X2
@@ -659,14 +659,14 @@ R6
 r1
 !s85 0
 31
-R7
+R16
 R26
 R27
 !i113 1
 R10
 R11
 vrom1
-R1
+R12
 !i10b 1
 !s100 VR?bOIDN:>]=<=nKA_me62
 I<1k@M[_5O6f2m1h3G:PC31
@@ -680,7 +680,7 @@ R6
 r1
 !s85 0
 31
-R7
+R16
 R26
 R27
 !i113 1
@@ -710,11 +710,11 @@ R11
 vsingle_cycle_cpu
 R12
 !i10b 1
-!s100 GUJ?mXC9dE6jo[@]lF:3e1
-IToF^;D;?l7R>f7<<>>n^o3
+!s100 bKb16:dVN6Ri`V[m23PXA0
+IeiBZlGY^z]QN0@5YJYaAn2
 R2
 R0
-w1748502663
+w1748517060
 8D:/verilog_projects/mid_assignment/single_cycle_cpu.v
 FD:/verilog_projects/mid_assignment/single_cycle_cpu.v
 L0 1
@@ -812,14 +812,35 @@ R7
 !i113 1
 R10
 R11
+vtb_control_unit
+!s110 1748521029
+!i10b 1
+!s100 5gOG:BjE_7>?@lV_@iS[E2
+IPX]k8m3V^^^?H]O9KgLkQ1
+R2
+R0
+w1748521025
+Z34 8D:/verilog_projects/mid_assignment/tb_control_unit.v
+Z35 FD:/verilog_projects/mid_assignment/tb_control_unit.v
+L0 1
+R6
+r1
+!s85 0
+31
+!s108 1748521029.000000
+!s107 D:/verilog_projects/mid_assignment/tb_control_unit.v|
+Z36 !s90 -reportprogress|300|-work|work|-stats=none|D:/verilog_projects/mid_assignment/tb_control_unit.v|
+!i113 1
+R10
+R11
 vtb_CP0
 R12
 !i10b 1
-!s100 7jhze?cNAkEIKeK_=9gVn1
-IKhCCiB9QbZ=gGmJ7?__SS0
+!s100 ;PW6cXKePK`nA1ZgQZO853
+Id:kJa`iCXFoZ93DM=D9=b1
 R2
 R0
-w1748435656
+w1748522293
 R19
 R20
 L0 3
@@ -834,14 +855,56 @@ R22
 R10
 R11
 ntb_@c@p0
+vtb_cp0
+!s110 1748522061
+!i10b 1
+!s100 eD=l`E;C]^lQaz4Qedo770
+IU[^7:D4cW=1>1H<b68goi1
+R2
+R0
+w1748521872
+R19
+R20
+L0 3
+R6
+r1
+!s85 0
+31
+!s108 1748522061.000000
+R21
+R22
+!i113 1
+R10
+R11
+vtb_ctr_unit
+R12
+!i10b 1
+!s100 baUR:b89hUm5bgkXL93=D0
+IjF1QmaG56b321O3XboET^1
+R2
+R0
+w1748522072
+R34
+R35
+L0 1
+R6
+r1
+!s85 0
+31
+R16
+!s107 D:/verilog_projects/mid_assignment/tb_control_unit.v|
+R36
+!i113 1
+R10
+R11
 vtb_data_memory
 R12
 !i10b 1
-!s100 `A2mVM=zRMRK0AU>HAF6Z2
-I_752l5@XLPm^bOiOI2?Zz0
+!s100 ]kLOeNWVcH67=XQVGPY3[2
+I[<RKUhd3>d5nozo3No1?a3
 R2
 R0
-w1748364596
+w1748523514
 8D:/verilog_projects/mid_assignment/tb_data_memory.v
 FD:/verilog_projects/mid_assignment/tb_data_memory.v
 L0 5
@@ -898,13 +961,13 @@ R16
 R10
 R11
 vtb_pc_module
-R1
+R12
 !i10b 1
-!s100 ]j1@S]COHA2ml@kizFHWR3
-IblA456RQFoDO]D<IFS;6S2
+!s100 5e=2JY_bi4SP;bR^<?5=P3
+Ie<LNaVRlXQ8CZa@6MLnGE1
 R2
 R0
-w1748452261
+w1748525493
 8D:/verilog_projects/mid_assignment/tb_pc_module.v
 FD:/verilog_projects/mid_assignment/tb_pc_module.v
 L0 3
@@ -921,11 +984,11 @@ R11
 vtb_registerfile
 R12
 !i10b 1
-!s100 5O]6K;T660RLQ@HT3z9_D3
-IYo3j24;eZ<k2CiSn0Cb`c2
+!s100 TKmGS7IKbg2]g?^BO1HCW2
+InTQa<9V][z9YWIg?iVG5A0
 R2
 R0
-w1748446691
+w1748526279
 8D:/verilog_projects/mid_assignment/tb_registerfile.v
 FD:/verilog_projects/mid_assignment/tb_registerfile.v
 L0 4
@@ -942,11 +1005,11 @@ R11
 vtb_single_cycle_cpu
 R12
 !i10b 1
-!s100 X:60mZe0`FAl9PgeMfJYE0
-IUdi1_DRmKFVN]AE0fdX2G2
+!s100 E_jSYZTP5[1LDYSdd:SRZ2
+Id8B20Je;6ZmFNPCJ?KEVY2
 R2
 R0
-w1748510891
+w1748517124
 8D:/verilog_projects/mid_assignment/tb_single_cycle_cpu.v
 FD:/verilog_projects/mid_assignment/tb_single_cycle_cpu.v
 L0 3
@@ -984,11 +1047,11 @@ R11
 vtb_syscall_decoder
 R1
 !i10b 1
-!s100 kdMnSNHc3DX_dE?Dag1@H0
-ILn4H^oS?^Qfd^V_EWT`8:2
+!s100 40@`6H<mS?F<=z3fRM@<d0
+Id>n>jU4H5hi7k0dN=7M2O3
 R2
 R0
-w1748449876
+w1748527120
 8D:/verilog_projects/mid_assignment/tb_syscall_decoder.v
 FD:/verilog_projects/mid_assignment/tb_syscall_decoder.v
 L0 4

@@ -12,7 +12,7 @@ module tb_syscall_decoder;
     // ??
     wire Halt;
     wire [31:0] Hex;
-    wire reset;
+    reg reset;
 
     // ??? ?? ????
     syscall_decoder uut (

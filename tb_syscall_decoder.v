@@ -38,13 +38,13 @@ module tb_syscall_decoder;
         v0 = 0;
         a0 = 0;
 
-        // Test 1: Enable = 1, v0 ? 10 ? Halt = 0
+        // Test 1: Enable = 1, v0 != 10 ? Halt = 0
         #10;
         Enable = 1;
         v0 = 32'd5;
         a0 = 32'h12345678;
         #10;
-        $display("<Test 1: v0 ? 10>");
+        $display("<Test 1: v0 != 10>");
         $display("v0 = 0x%08h, a0 = 0x%08h, Hex = 0x%08h, Halt = %b", v0, a0, Hex, Halt);
 
         // Test 2: Enable = 1, v0 == 10 ? Halt = 1

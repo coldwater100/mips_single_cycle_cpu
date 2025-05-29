@@ -62,9 +62,9 @@ module tb_registerfile;
         #10;
 
         $display("Read reg1_data ($v0): %h (Expected: 12345678)", reg1_data);
-        $display("Read reg2_data ($a0): %h (Expected: ABCDEF01)", reg2_data);
+        $display("Read reg2_data ($a0): %h (Expected: abcdef01)", reg2_data);
         $display("Direct output v0:     %h (Expected: 12345678)", v0);
-        $display("Direct output a0:     %h (Expected: ABCDEF01)", a0);
+        $display("Direct output a0:     %h (Expected: abcdef01)", a0);
 
         // Test 4: Attempt to write to $0 (should not change)
         WE = 1;

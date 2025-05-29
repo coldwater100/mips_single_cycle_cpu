@@ -1,111 +1,125 @@
-`timescale 1ns / 1ps
+`timescale 1ns/1ps
 
-module tb_CP0;
-
-    // Input signals
+module tb_CP0();
     reg [31:0] Inst;
+    reg [31:0] PCin;
+    reg [31:0] Din;
     reg ExpSrc0, ExpSrc1, ExpSrc2;
-    reg clk;
-    reg enable;
-    reg [31:0] PCin, Din;
+    reg clk, enable, reset;
+    wire ExRegWrite, IsEret, HasExp, ExpBlock;
+    wire [31:0] PCout;
+    wire [31:0] Dout;
 
-    // Output signals
-    wire ExRegWrite, IsEret;
-    wire ExpBlock, HasExp;
-    wire [31:0] PCout, Dout;
-
-    // Instantiate the Device Under Test (DUT)
-    CP0 uut (
+    CP0 uut(
         .Inst(Inst),
-        .ExRegWrite(ExRegWrite),
-        .IsEret(IsEret),
+        .PCin(PCin),
+        .Din(Din),
         .ExpSrc0(ExpSrc0),
         .ExpSrc1(ExpSrc1),
         .ExpSrc2(ExpSrc2),
         .clk(clk),
-        .ExpBlock(ExpBlock),
-        .HasExp(HasExp),
         .enable(enable),
-        .PCin(PCin),
-        .Din(Din),
+        .reset(reset),
+        .ExRegWrite(ExRegWrite),
+        .IsEret(IsEret),
+        .HasExp(HasExp),
+        .ExpBlock(ExpBlock),
         .PCout(PCout),
         .Dout(Dout)
     );
 
-    // Clock generation: 10 ns period
+    // Clock generation
     initial clk = 0;
     always #5 clk = ~clk;
 
-    // Test sequence
+    task print_status;
+    begin
+        $display("Inst = 0x%08h", Inst);
+        $display("PCin = 0x%08h", PCin);
+        $display("Din  = 0x%08h", Din);
+        $display("ExpSrc0 = %b, ExpSrc1 = %b, ExpSrc2 = %b", ExpSrc0, ExpSrc1, ExpSrc2);
+        $display("ExRegWrite = %b", ExRegWrite);
+        $display("IsEret     = %b", IsEret);
+        $display("HasExp     = %b", HasExp);
+        $display("ExpBlock   = %b", ExpBlock);
+        $display("PCout      = 0x%08h", PCout);
+        $display("Dout       = 0x%08h", Dout);
+        $display("----------------------------------");
+    end
+    endtask
+
+    task init;
+    begin
+        Inst = 32'h0;
+        PCin = 32'h00400000;
+        Din = 32'h12345678;
+        ExpSrc0 = 0; ExpSrc1 = 0; ExpSrc2 = 0;
+        enable = 0;
+        reset = 1;
+        #10; reset = 0;
+        print_status();
+    end
+    endtask
+
+    task exception_trigger_test;
+    begin
+        Inst = 32'h0;
+        ExpSrc0 = 1;
+        #10;
+        ExpSrc0 = 0;
+        #10;
+        print_status();
+    end
+    endtask
+
+    task epc_write_test;
+    begin
+        Inst = 32'h00000000; // sel=00, ExRegWrite=1
+        ExpSrc0 = 0;
+        enable = 0;
+        #10;
+        print_status();
+    end
+    endtask
+
+    task epc_read_test;
+    begin
+        Inst = (2'b00 << 11); // sel = 00
+        enable = 1;
+        #10;
+        print_status();
+    end
+    endtask
+
+    task eret_test;
+    begin
+        Inst = 32'b010000_10000_00000_00000_00000_011000; // eret
+        #10;
+        print_status();
+    end
+    endtask
+
     initial begin
-        // ===== Initialization =====
-        Inst     = 32'd0;
-        ExpSrc0  = 1'b0;
-        ExpSrc1  = 1'b0;
-        ExpSrc2  = 1'b0;
-        enable   = 1'b0;
-        PCin     = 32'h0000_0000;
-        Din      = 32'h0000_0000;
+        $display("==== CP0 Module Testbench Start ====");
 
-        #10;
-        $display("==== Initialization Complete ====");
-
-        // ===== Trigger Exception (ExpSrc1) =====
-        PCin    = 32'h00400000;
-        ExpSrc1 = 1'b1;
-        #10;
-        ExpSrc1 = 1'b0;
-        #10;
+        $display("\n[Initialization]");
+        init();
 
         $display("\n[Exception Trigger Test]");
-        $display("Inst      = 0x%h", Inst);
-        $display("ExpSrc    = %b %b %b", ExpSrc2, ExpSrc1, ExpSrc0);
-        $display("HasExp    = %b", HasExp);
-        $display("ExpBlock  = %b", ExpBlock);
-        $display("PCin      = 0x%h", PCin);
-        $display("PCout     = 0x%h", PCout);
-
-        // ===== Write to EPC register =====
-        Inst   = 32'b0000_0000_0000_0000_0000_0000_0000_0000; // sel = 2'b00, ExRegWrite = 1
-        enable = 1'b1;
-        Din    = 32'h1234_5678;
-        #10;
-        enable = 1'b0;
-        #10;
+        exception_trigger_test();
 
         $display("\n[EPC Write Test]");
-        $display("Inst      = 0x%h", Inst);
-        $display("sel       = %b", Inst[12:11]);
-        $display("enable    = %b", enable);
-        $display("ExRegWrite= %b", ExRegWrite);
-        $display("Din       = 0x%h", Din);
-        $display("PCin      = 0x%h", PCin);
-        $display("PCout     = 0x%h", PCout);
-
-        // ===== Read from EPC register =====
-        Inst   = 32'b0000_0000_0000_1000_0000_0000_0000_0000; // sel = 2'b00, ExRegWrite = 0
-        enable = 1'b1;
-        #10;
-        enable = 1'b0;
+        epc_write_test();
 
         $display("\n[EPC Read Test]");
-        $display("Inst      = 0x%h", Inst);
-        $display("sel       = %b", Inst[12:11]);
-        $display("ExRegWrite= %b", ExRegWrite);
-        $display("Dout      = 0x%h (EPC)", Dout);
-        $display("PCout     = 0x%h", PCout);
-
-        // ===== Test ERET instruction =====
-        Inst[5:0] = 6'b011000;
-        #10;
+        epc_read_test();
 
         $display("\n[ERET Instruction Test]");
-        $display("Inst      = 0x%h", Inst);
-        $display("IsEret    = %b", IsEret);
+        eret_test();
 
-        // ===== End of Simulation =====
-        $display("\n==== End of Test ====");
+        #20;
+        $display("==== CP0 Module Testbench Complete ====");
         $stop;
     end
-
 endmodule
+

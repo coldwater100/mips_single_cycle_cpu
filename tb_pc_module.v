@@ -27,9 +27,9 @@ module tb_pc_module;
     );
 
     initial begin
-        $display("Time | HasExp IsEret IsCOP0 IsJR Jump Branch BneOrBeq Equal | PCOut");
-        $monitor("%4t |    %b      %b      %b     %b    %b      %b       %b      %b  | %h",
-                 $time, HasExp, IsEret, IsCOP0, IsJR, Jump, Branch, BneOrBeq, Equal, PCOut);
+        $display("Time   |      PresentPC HasExp IsEret IsCOP0 IsJR Jump Branch BneOrBeq Equal | PCOut");
+        $monitor("%6t |     %h     %b      %b      %b     %b    %b      %b       %b      %b  | %h",
+                 $time, PresentPC,HasExp, IsEret, IsCOP0, IsJR, Jump, Branch, BneOrBeq, Equal, PCOut);
 
         // ???
         clk = 0;
